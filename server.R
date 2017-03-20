@@ -133,14 +133,14 @@ shinyServer(function(input, output) {
     df = ebird()
     df = subset(df, df$BCRNUMNAME == input$bcr)
     aggMean = aggregate(df$OBSERVATION.COUNT, list(Week=df$MonthDay, BCR=df$BCR.CODE), mean)
-    plot(x=aggMean$Week, y=aggMean$x)
+    plot(x=aggMean$Week, y=aggMean$x, 
+      main=paste("Figure 1. Observation count mean by BCR plotted over wintering period for ", input$species, sep=""),
+      ylab="Average count",
+      xlab="Date",
+      cex.lab=1.5
+    )
+    
     lines(x=aggMean$Week, y=aggMean$x, col="red")
-    # ggplot(aggMean, aes(x=aggMean$Week, y=x)) + geom_blank() +
-    #   stat_summary(aes(y = x,group=1), fun.y=mean, colour="red", geom="line",group=1) + 
-    #   labs(y="Mean Observation count", x="Week number from the first week in September until the last week in April") +
-    #   scale_x_discrete(breaks=c("8/1", "9/1", "10/1", "11/1", "12/1", "1/1", "2/1", "3/1", "4/1"), labels=c("8/1","9/1", "10/1", "11/1", "12/1", "1/1", "2/1", "3/1", "4/1"), drop=FALSE) + 
-    #   #scale_x_discrete(labels=c("Sept", 36:43, "November", 45:53, "Jan", 2:9, "Mar", 11:17), drop=FALSE) +
-    #   ggtitle(paste("Figure 2. Observation count mean by BCR plotted over wintering period for ", input$species, sep=""))
   })
   computeSmooth = reactive({
     df = ebird()
@@ -148,15 +148,14 @@ shinyServer(function(input, output) {
     aggMean = aggregate(df$OBSERVATION.COUNT, list(Week=df$MonthDay, BCR=df$BCR.CODE), mean)
     ss = smooth.spline(x=aggMean$Week, y=aggMean$x, spar=0.7, keep.data = TRUE)
     ss$x = aggMean$Week
-    plot(x=ss$x, y=ss$y, type="l")
+    plot(x=ss$x, y=ss$y, type="l", 
+         main=paste("Figure 2. Smoothed Observation count mean by BCR plotted over wintering period for ", input$species, sep=""),
+         ylab="Average count",
+         xlab="Date",
+         cex.lab=1.5
+         )
+    
     lines(x=ss$x,y=ss$y, col="red")
-    # aggMean$smooth = SMA(aggMean[, "x"],7)
-    # #plot(aggMean$Week, aggMean$OBSERVATION.COUNT)
-    # ggplot(aggMean, aes(x=aggMean$Week, y=aggMean$smooth)) + geom_blank() +
-    #   stat_summary(aes(y = aggMean$smooth,group=1), fun.y=mean, colour="red", geom="line",group=1) + 
-    #   labs(y="Mean Observation count", x="Week number from the first week in September until the last week in April") +
-    #   scale_x_discrete(breaks=c("8/1", "9/1", "10/1", "11/1", "12/1", "1/1", "2/1", "3/1", "4/1"), labels=c("8/1","9/1", "10/1", "11/1", "12/1", "1/1", "2/1", "3/1", "4/1"), drop=FALSE) +
-    #   ggtitle(paste("Figure 2. Smoothed Observation count mean by BCR plotted over wintering period for ", input$species, sep=""))
   })
   
   computePVal = reactive({

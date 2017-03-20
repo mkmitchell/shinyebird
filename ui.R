@@ -15,7 +15,7 @@ shinyUI(fluidPage(
       div(style="display:inline-block","Species Code: "),  
       div(style="display:inline-block; text-transform:uppercase", textOutput("whichSpecies"))), br(),
       plotOutput(("statsTable")), br(),
-      plotOutput(("smoothTable")),br(),br(),
+      plotOutput(("smoothTable")),br(),
       "P-Values less than 0.05 indicate significant bimodality and values greater than 0.05 but less than 0.10 suggest bimodality with marginal significance.",br(),
       strong(textOutput(("pVal"))),br(),
       "The test statistic comes from dip.test: https://cran.r-project.org/web/packages/diptest/diptest.pdf"
