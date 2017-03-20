@@ -162,7 +162,7 @@ shinyServer(function(input, output) {
   computePVal = reactive({
     df = ebird()
     df = subset(df, df$BCRNUMNAME == input$bcr)
-    testsetup = aggregate(df$OBSERVATION.COUNT, list(Week=df$Week, BCR=df$BCR.CODE, BCRNUMNAME = df$BCRNUMNAME), mean)
+    testsetup = aggregate(df$OBSERVATION.COUNT, list(Week=df$MonthDay, BCR=df$BCR.CODE, BCRNUMNAME = df$BCRNUMNAME), mean)
     #testsmooth = SMA(testsetup[, "x"], 3)
     ss = smooth.spline(x=testsetup$Week, y=testsetup$x, spar=0.7, keep.data = TRUE)
     test = dip.test(ss$y)
