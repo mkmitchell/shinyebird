@@ -12,7 +12,7 @@ shinyServer(function(input, output) {
     print(as.numeric(input$do))
     df = ebird()
     items = unique(df$BCRNUMNAME)
-    selectInput("bcr", "BCR:", items)
+    updateSelectInput("bcr", "BCR:", items)
   })
   
   ebird = reactive({
@@ -64,10 +64,7 @@ shinyServer(function(input, output) {
     temp
   })
   
-  output$selectedSpecies = renderUI({
 
-    })
-  
   output$whichSpecies = renderText({
     input$species
   })
