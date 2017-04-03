@@ -9,10 +9,7 @@ shinyServer(function(input, output) {
   workspace = "/data"
   
   observeEvent(input$do, {
-    print(as.numeric(input$do))
-    df = ebird()
-    items = unique(df$BCRNUMNAME)
-    updateSelectInput("bcr", "BCR:", items)
+     print(as.numeric(input$do))
   })
   
   ebird = reactive({
@@ -64,7 +61,12 @@ shinyServer(function(input, output) {
     temp
   })
   
-
+  output$selectedSpecies = renderUI({
+    df = ebird()
+    items = unique(df$BCRNUMNAME)
+    selectInput("bcr", "BCR:", items)
+    })
+  
   output$whichSpecies = renderText({
     input$species
   })
