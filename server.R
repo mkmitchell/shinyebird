@@ -7,10 +7,12 @@ library(TTR)
 
 shinyServer(function(input, output) {
   workspace = "/data"
-  bcr = "BCR.csv"
   
   observeEvent(input$do, {
-     print(as.numeric(input$do))
+    print(as.numeric(input$do))
+    df = ebird()
+    items = unique(df$BCRNUMNAME)
+    selectInput("bcr", "BCR:", items)
   })
   
   ebird = reactive({
@@ -22,7 +24,7 @@ shinyServer(function(input, output) {
       ############################################################################
       # Read in ebird data
       temp = read.csv(paste(workspace,inbird,sep="/"), sep=",", header=TRUE, quote = "", stringsAsFactors = FALSE, na.strings=c(""))
-      incProgress(0.6, detail = "Finished pulling in eBird.  Importing BCR")
+      incProgress(0.6, detail = "Finished pulling in eBird.  Making fancy")
 
       # Reorder months
       temp$Month = factor(temp$Month, levels=c(9, 10, 11, 12, 1, 2, 3, 4))
@@ -63,9 +65,7 @@ shinyServer(function(input, output) {
   })
   
   output$selectedSpecies = renderUI({
-    df = ebird()
-    items = unique(df$BCRNUMNAME)
-    selectInput("bcr", "BCR:", items)
+
     })
   
   output$whichSpecies = renderText({
