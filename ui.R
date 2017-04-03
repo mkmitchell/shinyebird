@@ -5,7 +5,7 @@ shinyUI(fluidPage(
   sidebarLayout(
     sidebarPanel(
       "Please choose a species and wait for the BCR list and species code to update.  Sometimes it takes awhile to load the datasets.  When ready, the fields will not be greyed out.  You only need to hit run Analysis once.  The rest will be dynamic", br(),br(),
-      selectInput("species", "Species:", sort(c("Green-winged teal" = "AGWT","Black Duck" = "ABDU", "American Widgeon" = "AMWI", "Blue-winged teal" = "BWTE", "Canvasback" = "CANV", "Cinnamon teal" = "CITE", "Gadwall"= "GADW", "Great/Lesser Scaup" = "SCAU", "Mallard" = "MALL", "Pintail" = "NOPI", "Northern Shoveler" = "NOSH", "Redhead"= "REDH", "Ringed neck" = "RNDU", "Ruddy Duck" = "RUDU", "Wood duck" = "WODU"))),
+      selectInput("species", "Species:", sort(c("Green-winged teal" = "AGWT","Black Duck" = "ABDU", "American Widgeon" = "AMWI", "Blue-winged teal" = "BWTE", "Canvasback" = "CANV", "Cinnamon teal" = "CITE", "Gadwall"= "GADW", "Great Scaup" = "GRSC","Lesser Scaup" = "LESC", "Mallard" = "MALL", "Pintail" = "NOPI", "Northern Shoveler" = "NOSH", "Redhead"= "REDH", "Ringed neck" = "RNDU", "Ruddy Duck" = "RUDU", "Wood duck" = "WODU"))),
       uiOutput("selectedSpecies"),
       actionButton("do", "Run Analysis")
     ),
