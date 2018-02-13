@@ -158,6 +158,7 @@ shinyServer(function(input, output) {
       ############################################################################
       # Read in ebird data
       temp = read.csv(paste(workspace,inbird,sep="/"), sep=",", header=TRUE, quote = "", stringsAsFactors = FALSE, na.strings=c(""))
+      temp = temp[!is.na(temp$BCRNAME),]
       incProgress(0.6, detail = "Finished pulling in eBird.  Making fancy")
 
       # Reorder months
